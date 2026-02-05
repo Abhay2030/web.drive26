@@ -1,32 +1,133 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Mini Google Drive</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CineDrive | CineAbstra</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-  <h2>Mini Google Drive</h2>
 
-  <div id="auth-section">
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
-    <button onclick="signup()">Signup</button>
-    <button onclick="login()">Login</button>
-    <button onclick="logout()">Logout</button>
+  <div class="bg-orb orb-1"></div>
+  <div class="bg-orb orb-2"></div>
+
+  <div id="toast-container"></div>
+
+  <div id="auth-section" class="auth-container">
+    <div class="auth-card">
+      <div class="logo-large">
+        <i class="fa-solid fa-infinity"></i>
+        <h1>CineDrive</h1>
+      </div>
+      <p class="subtitle">Enterprise Cloud for Visionaries</p>
+
+      <div class="input-group">
+        <i class="fa-solid fa-envelope"></i>
+        <input type="email" id="email" placeholder="Email Address">
+      </div>
+      <div class="input-group">
+        <i class="fa-solid fa-lock"></i>
+        <input type="password" id="password" placeholder="Password">
+      </div>
+
+      <div class="action-buttons">
+        <button onclick="login()" class="btn-primary">Access Dashboard</button>
+        <button onclick="signup()" class="btn-secondary">Create ID</button>
+      </div>
+    </div>
   </div>
 
-  <div id="upload-section" style="display:none;">
-    <input type="file" id="fileInput">
-    <button onclick="uploadFile()">Upload</button>
-    <div id="fileList"></div>
+  <div id="upload-section" class="dashboard-container" style="display:none;">
+
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-infinity"></i>
+        <span>CineDrive</span>
+      </div>
+
+      <nav>
+        <a href="#" class="active" onclick="filterFiles('all')"><i class="fa-solid fa-hard-drive"></i> All Files</a>
+        <a href="#" onclick="filterFiles('image')"><i class="fa-solid fa-image"></i> Images</a>
+        <a href="#" onclick="filterFiles('video')"><i class="fa-solid fa-film"></i> Videos</a>
+        <a href="#" onclick="filterFiles('doc')"><i class="fa-solid fa-file-contract"></i> Documents</a>
+      </nav>
+
+      <div class="storage-widget">
+        <div class="storage-header">
+          <span>Storage</span>
+          <span>75%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 75%;"></div>
+        </div>
+        <p class="storage-text">15 GB of 20 GB used</p>
+      </div>
+
+      <a href="#" onclick="logout()" class="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+    </aside>
+
+    <main class="main-content">
+      <header>
+        <div class="search-bar">
+          <i class="fa-solid fa-search"></i>
+          <input type="text" id="searchInput" placeholder="Search your files..." onkeyup="searchFiles()">
+        </div>
+        <div class="user-profile">
+          <div class="user-info">
+            <span class="user-name">Abhay Donde</span>
+            <span class="user-role">Admin</span>
+          </div>
+          <div class="avatar">AD</div>
+        </div>
+      </header>
+
+      <div class="upload-wrapper">
+        <h2>Upload Files</h2>
+        <div class="upload-zone" id="dropZone">
+          <input type="file" id="fileInput" onchange="handleFileSelect(this)">
+          <div class="upload-content">
+            <div class="icon-circle">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+            </div>
+            <p>Drag & drop files here or <span class="highlight">Browse</span></p>
+          </div>
+        </div>
+        <div id="upload-status" class="status-bar" style="display:none;">
+          <span id="fileNameDisplay">No file selected</span>
+          <button onclick="uploadFile()" id="uploadBtn" class="btn-upload" disabled>Upload</button>
+        </div>
+      </div>
+
+      <div class="file-section">
+        <div class="section-header">
+          <h3>Recent Uploads</h3>
+          <div class="view-options">
+            <i class="fa-solid fa-list"></i>
+            <i class="fa-solid fa-border-all active"></i>
+          </div>
+        </div>
+        <div id="fileList" class="file-grid">
+        </div>
+      </div>
+    </main>
   </div>
 
-  <!-- Firebase SDK -->
+  <div class="watermark">
+    <div class="watermark-content">
+      <span>Designed by <strong>Abhay Donde</strong></span>
+      <span class="separator">|</span>
+      <span>&copy; 2026 CineAbstra</span>
+    </div>
+  </div>
+
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
-
-  <!-- Your Config & App -->
   <script src="app.js"></script>
 </body>
+
 </html>
